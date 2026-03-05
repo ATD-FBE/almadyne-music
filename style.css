@@ -1,0 +1,1095 @@
+html {
+    width: 100%;
+    height: 100%;
+    filter: sepia(3%);
+    scroll-behavior: smooth;
+}
+
+body {
+    position: relative;
+    max-width: 1920px;
+    min-width: 500px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 0;
+    font: 17pt 'Times New Roman', Verdana, Tahoma, Arial, 'Trebuchet MS',
+        Garamond, Courier, Serif;
+    background: url("img/TextureBody.jpg") repeat, #1e1e41;
+    background-blend-mode: luminosity;
+}
+
+.Preloader {
+    position: fixed;
+    left: 0; right: 0; top: 0; bottom: 0;
+    background: linear-gradient(135deg, #ffc3fc, #38d7ff);
+    z-index: 100;
+}
+
+.PreloadBox {
+    position: relative;
+    top: 50%; left: 50%;
+    height: 120px;
+    width: 120px;
+    margin-left: calc(-120px/2);
+    margin-top: calc(-120px/2);
+    animation: PreloadBoxRotate 3s linear infinite;
+}
+
+.PreloadCircle {
+    position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    bottom: 0;
+    background: #812de0;
+    border-radius: 50%;
+    animation: PreloadCircleScale 1.5s ease-in-out infinite;
+}
+
+.PreloadCircle:last-child {
+    top: calc(50% - 40px/2);
+    left: calc(50% - 40px/2);
+    background: #e222c2;
+    transform: scale(0);
+    animation-delay: 0.75s;
+}
+
+.PreloadHiding .Preloader {
+    transition: 300ms opacity;
+    opacity: 0;
+}
+
+.ready .Preloader {
+    display: none;
+}
+
+h1 {
+    margin: 0;
+    padding: 5px;
+    font-family: Georgia;
+    font-size: 74pt;
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 14pt;
+    margin-left: 17px;
+}
+
+header {
+    position: relative;
+    white-space: nowrap;
+    text-align: left;
+    padding-left: 25px;
+}
+
+header::before { /* Для изменений только фона */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    height: 180px;
+    z-index: -3;
+    background: linear-gradient(135deg, rgba(254, 239, 255, 0.9),
+    rgba(9, 202, 228, 0.3)), url("img/HeaderImage.png") no-repeat;
+    background-size: cover;
+    background-blend-mode: screen;
+    border-bottom: 1px solid #7c81e2;
+    box-sizing: border-box;
+    filter: blur(1px);
+} 
+
+.MainHeader {
+    position: relative;
+    width: 475px;
+    text-shadow: 0 0 12px #ffd7a2;
+    user-select: none;
+}
+
+.MainHeader a {
+    text-decoration: none;
+    color: #650f8d;
+}
+
+.MainHeader p {
+    margin: 0;
+    padding-bottom: 19px;
+    font-size: 26pt;
+    font-style: italic;
+}
+
+.ready .HeaderTitle {
+    animation: HeaderTitleAnimation 2.5s;
+}
+
+.HeaderEmblem1 {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    height: 180px;
+    z-index: -2;
+    background: linear-gradient(135deg, rgba(254, 239, 255, 0.9),
+    rgba(9, 202, 228, 0.3)), url("img/HeaderImage.png") no-repeat;
+    background-size: cover;
+    background-blend-mode: screen;
+    border-bottom: 1px solid #7c81e2;
+    box-sizing: border-box;
+    clip-path: circle(0 at 520px 40px);
+    transform-origin: 520px 40px 0;
+    filter: blur(1px) brightness(1) saturate(1);
+    
+}
+
+.HeaderEmblem2 {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    height: 180px;
+    z-index: -1;
+    background: linear-gradient(135deg, rgba(254, 239, 255, 0.9),
+    rgba(9, 202, 228, 0.3)), url("img/HeaderImage.png") no-repeat;
+    background-size: cover;
+    background-blend-mode: screen;
+    border-bottom: 1px solid #7c81e2;
+    box-sizing: border-box;
+    clip-path: circle(0 at 520px 40px);
+    transform-origin: 520px 40px 0;
+    filter: blur(3px) brightness(1.1) saturate(1.1);
+}
+
+.ready .HeaderEmblem1 {
+    animation: HeaderEmblem1Animation_BigScreen 3s linear infinite;
+}
+.ready .HeaderEmblem2 {
+    animation: HeaderEmblem2Animation_BigScreen 3s linear infinite;
+}
+.ready .HeaderEmblem1AnimDelay, .ready .HeaderEmblem2AnimDelay {
+    animation-delay: 2.5s;
+}
+
+nav {
+    height: 70px;
+    margin: 25px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+nav::before { /* Для изменений только фона */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: -1;
+    background: url("img/TextureSandMonochrome.jpg"), linear-gradient(10deg, #cc7fff, #fff6df, #cc7fff);
+    background-blend-mode: soft-light;
+}
+
+.Navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin: auto;
+    top: 25%;
+    height: 50%;
+    width: 72%;
+}
+
+.Navigation > a {
+    margin: auto;
+    padding: 6px 0;
+    width: 17%;
+    min-width: 93px;
+    line-height: 1em;
+    text-align: center;
+    align-items: middle;
+    text-decoration: none;
+    font-weight: bold;
+    color: #7e0077;
+    text-shadow: 0 0 10px rgba(184, 22, 116, 0.3);
+    background: linear-gradient(to bottom, #8a3cca 0%, #ffcb6a 35%, #ffda60 50%, #ffcb6a 65%, #cf3eab 100%);
+    border-radius: 10px;
+    user-select: none;
+}
+
+.Navigation > a:active {
+    filter: brightness(120%) contrast(90%);
+}
+
+.Navigation > a:first-child {
+    border-radius: 10px 0 10px 0;
+}
+
+.Navigation > a:last-child {
+    border-radius: 0 10px 0 10px;
+}
+
+main {
+    display: flex;
+    align-items: stretch;
+    padding-bottom: 81px;
+}
+
+aside {
+    position: relative;
+    margin-left: 25px;
+    width: 20%;
+    border-radius: 20px;
+}
+
+aside::before { /* Для изменений только фона */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: -1;
+    background: url("img/TextureSandMonochrome.jpg") repeat-y, #5c0008;
+    background-blend-mode: soft-light;
+    border-radius: 20px;
+    filter: opacity(75%);
+}
+
+.RightSection {
+    width: 38%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(18, 89, 170, 0.75));
+    border-radius: 0 20px 20px 0;
+}
+
+aside, .RightSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.MusicPageImgSide {
+    display: block; /* Заменяет "display: flex" от селектора "aside, .RightSection" */
+}
+
+.ImgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    padding: 30px 0;
+}
+
+.RightSection .ImgContainer {
+    width: 70%;
+}
+
+.MusicPageImgContainer {
+    margin: 0 auto;
+    padding: 0;
+}
+
+.MusicPageImgContainer:first-child {
+    margin-top: 30px;
+}
+
+.AligningBlock {
+    height: 70px; /* Равно высоте TextOrnament */
+}
+
+.SideImg, .FigCover img, .RightImgCover {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.SideImg{
+    opacity: 0.7;
+    filter: sepia(0.3);
+}
+
+.FigCover {
+    margin: 0 5px;
+    border-radius: 50%;
+}
+
+.FigCover a {
+    text-decoration: none;
+    color: #e3deec;
+    text-shadow: 2px 2px 3px rgba(56, 64, 66, 0.5);
+}
+
+.FigCover .DiskCoverContainer {
+    position: relative;
+    border-radius: 50%;
+    filter: saturate(0.75);
+    border: 1px solid;
+}
+
+.FigCover img {
+    vertical-align: middle;
+    box-sizing: border-box;
+    border: 1px solid rgba(227, 222, 236, 0.95);
+    border-radius: 50%;
+}
+
+.FigCover .DoubleCircle {
+    position: absolute;
+    width: 90px; height: 90px;
+    top: calc(50% - 90px/2);
+    left: calc(50% - 90px/2);
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #2d2c2c 18px, 
+        rgba(227, 222, 236, 0.98) 19px);
+}
+
+.FigCover figcaption {
+    padding: 5px;
+    font: 15pt 'Nirmala UI';
+    letter-spacing: 0.02em;
+    text-align: center;
+    background: linear-gradient(10deg, #00428d,#00c0f0);
+    border-radius: 3px;
+}
+
+.FigCover:hover {
+    transform: scale(1.01);
+    transition: 0.25s;
+}
+
+.FigCover .DiskCoverContainer:hover, .FigCover figcaption:hover {
+    box-shadow: 0 0 20px rgba(255, 230, 119, 0.733);
+}
+
+aside, .MainArticle, .RightImgCover, .Navigation a, .FigCover {
+    transition: transform 0.1s;
+}
+
+aside:hover, .MainArticle:hover, .Navigation a:hover, .RightImgCover:hover, .AuthorPhoto:hover {
+    box-shadow: 0 0 20px rgba(255, 230, 119, 0.733);
+    transform: scale(1.01);
+    transition: transform 0.25s;
+}
+
+.MainArticle {
+    display: flex;
+    position: relative;
+    margin: 0 25px;
+    width: 77%;
+    border-radius: 20px;
+}
+
+.MainArticle::before { /* Для изменений только фона */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: -1;
+    background: url("img/TextureSandMonochrome.jpg") repeat-y, #af9fb6;
+    background-blend-mode: soft-light;
+    border-radius: 20px;
+    filter: opacity(75%);
+}
+
+.MainArticle:focus-within {
+    transform: scale(1.00);
+}
+
+.CenterSection {
+    position: relative;
+    margin-left: 9.5%;
+    padding: 30px 0;
+    width: 55%;
+    height: fit-content;
+    min-width: 192px;
+    text-align: center;
+    word-wrap: break-word;
+    text-shadow: 2px 2px 3px rgba(56, 64, 66, 0.5);
+}
+
+.CenterSection p {
+    margin: 0;
+    padding: 5px;
+    line-height: 1.12em;
+}
+
+.CenterSection span {
+    margin: 0;
+    padding: 0;
+    font-size: 10pt;
+    line-height: 0;
+    color: #666666;
+    text-shadow: 2px 2px 3px rgba(221, 173, 14, 0.5);
+}
+
+.ImgTextOrnament {
+    width: 18%;
+    min-width: 72px;
+}
+
+.TextOrnament {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+}
+
+.LowLine {
+    border-bottom: 3px ridge rgba(119, 91, 49, 0.5);
+    box-sizing: border-box;
+}
+
+.MusicAlbum {
+    position: relative;
+    padding-top: 24px;
+}
+
+.MusicAlbum .AnchorMA { /* Якори муз. альбомов, положение зависит от высоты nav */
+    position: absolute;
+    top: -70px;
+}
+
+.MusicAlbum .PlayArrow {
+    position: absolute;
+    display: inline-block;
+    line-height: 472px;
+    left: -80px;
+    font-size: 125pt;
+    color: #00ad34;
+    text-shadow: 2px 2px 3px rgba(56, 64, 66, 0.3);
+    visibility: hidden;
+    user-select: none;
+}
+
+.MusicAlbum iframe {
+    margin-bottom: -6px;
+    width: 75%;
+    height: 472px;
+    border: 2px solid #7a137a;
+    border-radius: 5px;
+    transition: transform 0.1s;
+}
+
+.MusicAlbum iframe:hover {
+    border: 2px solid #971777;
+    transform: scale(calc(1/1.01));
+    transition: transform 0.25s;
+}
+
+.InvisibleDIV {
+    position: absolute;
+    left: calc(50% - 75%/2);
+    top: 24px;
+    width: 75%;
+    height: 472px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 5px;
+}
+
+.News, .AboutProject {
+    font-size: 15pt;
+    text-align: justify;
+}
+
+.News p {
+    margin-left: 12%;
+}
+
+.TimeNews {
+    margin-top: 3px;
+    margin-left: -5%;
+    padding: 2px;
+    border-radius: 6px;
+    float: left;
+    color:#000980;
+    background-color: #df8938;
+    cursor: pointer;
+}
+
+.AuthorPhoto {
+    height: 198px;
+    width: 198px;
+    border: 2px solid #7a137a;
+    border-radius: 3px;
+    float: left;
+    margin: 5px 12px 5px 5px;
+}
+
+.AuthorPhoto:hover {
+    border: 2px solid #971777;
+}
+
+#ContactInfo {
+    margin: auto;
+    width: 75%;
+    border: 3px dotted #df0f4300; /* Сохранение ширины границ */
+}
+
+#ContactInfo:target {
+    background-color: rgba(255, 0, 157, 0.1);
+    border: 3px dotted rgb(255, 0, 157);
+    border-radius: 10px;
+}
+
+#ContactInfo .ContactMail {
+    display: inline-block;
+    max-width: 100%;
+    color: #084f5f;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+#ContactInfo .CopyMessage {
+    position: absolute;
+    margin-top: 5px;
+    min-width: 108px;
+    color: #00ad34;
+    opacity: 0;
+}
+
+.ContactMail:hover {
+    text-shadow: 0 0 20px rgba(255, 247, 134, 0.733);
+}
+
+.FormTrigger {
+    text-decoration: none;
+    font-size: 17pt;
+    color: #2f00ff;
+}
+
+#MailFormAnchor {
+    position: relative;
+    top: -70px; /* Зависит от высоты nav */
+}
+
+#MailFormObject.Closed, .ArrowTopPage.Hidden {
+    display: none;
+}
+
+#MailFormObject.Open, .ArrowTopPage.Visible {
+    display: block;
+    animation-name: FadeIn;
+    animation-fill-mode: both;
+    animation-duration: 1000ms;
+}
+
+.MailFormTable {
+    width: 80%;
+    margin: auto;
+    border-spacing: 0;
+    text-align: left;
+    font-size: 15pt;
+}
+
+.MailFormTable td {
+    padding: 10px 0;
+    cursor: default;
+}
+
+.MailFormTable td .RequiredSign {
+    font-size: 10pt;
+    color: red;
+}
+
+.TextField1, .TextField2, .TextField3, .TextField4 {
+    font-size: 11pt;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #560e86;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.TextField4 {
+    resize: vertical;
+    height: 10em;
+}
+
+.MailFormTable tfoot {
+    text-align: right;
+}
+
+.MailFormTable .LimitNoteCell {
+    text-align: left;
+    height: 1em;
+    line-height: 1em;
+}
+
+.MailFormTable .LimitNoteCell > .LimitNote {
+    position: relative;
+    top: -30px;
+    font-size: 10pt;
+    color: #303030;
+    text-shadow: none;
+}
+
+.SubmitButton {
+	width: 110px;
+	height: 30px;
+	font: 16px 'Trebuchet MS';
+	padding: 0;
+	outline: none;
+	position: relative;
+	cursor: pointer;
+	border-radius: 3px;
+	color: #51646a;
+	text-shadow: 1px 1px #C4D0DA;
+	border: 1px solid #7C8A93;
+	border-top: 1px solid #A1AEB7;
+	border-bottom: 1px solid #5D6B75;
+	box-shadow:
+		inset 0 1px #D8E0E6,
+		inset 1px 0 #B7C6D1,
+		inset -1px 0 #B7C6D1,
+		inset 0 -1px #A1B5C4,
+		0 1px #62727E,
+		0 1px #5D6B75,
+		0 2px 2px rgba(0,0,0,0.4)
+	;
+	background-color: #e2eef0;
+}
+.SubmitButton:hover {
+	border-top: 1px solid #96A2AB;
+	box-shadow:
+		inset 0 1px #C0CED7,
+		inset 1px 0 #B7C6D1,
+		inset -1px 0 #B7C6D1,
+		inset 0 -1px #B9C8D3,
+		0 1px #62727E,
+		0 1px #5D6B75,
+		0 2px 2px rgba(0,0,0,0.4)
+	;
+	background-color: #d6e5e7;
+}
+.SubmitButton:active {
+	top: 3px;
+	border: 1px solid #778998;
+	border-top: 1px solid #606F7A;
+	border-bottom: 1px solid #8296A6;
+	box-shadow: inset 0 1px 2px #5F7281;
+    background-color: #9fb2b4;
+}
+.SubmitButton:disabled {
+    top: 0;
+    border: 1px solid #aeb8be;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    background-color: #ced9db;
+    color: #8a969b;
+    text-shadow: none;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.RightColumn {
+    display: none;
+    position: fixed;
+    right: 8%;
+    bottom: 56px;
+    width: 18%;
+    min-width: 150px;
+    margin: 0;
+    padding: 2px 7px;
+    font-size: 13pt;
+    word-wrap: break-word;
+    background: #fff7cc;
+    border: 1px solid;
+}
+
+.RightColumn ol {
+    padding-left: 17px;
+    margin-bottom: 18px;
+    height: 481px;
+    overflow-x: hidden;
+}
+
+li ~ li {
+    margin-top: 7px;
+}
+
+.CloseImg {
+    float: left;
+}
+
+.RightColumnButton1 {
+    float: right;
+    margin: 20px -15% 0 0;
+    height: 42px;
+    width: 98px;
+    border: 1px solid;
+    border-radius: 10px;
+    background-color: #9fd4ff;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 12pt;
+    cursor: pointer;
+}
+.RightColumnButton1:hover {
+    background-color: #bde3ff;
+}
+.RightColumnButton1:active {
+    background-color: #539fdd;
+}
+
+.RightColumnButton2 {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    left: -102px;
+    width: 110px;
+    height: 58px;
+    border: 2px solid #f30606;
+    border-radius: 10px;
+    background-color: #ffa860;
+    color: #601e86;
+    overflow: hidden;
+    text-overflow: clip;
+    font-size: 12pt;
+    cursor: pointer;
+}
+.RightColumnButton2:hover {
+    background-color: #ffbd66;
+}
+.RightColumnButton2:active {
+    background-color: #e0863b;
+}
+
+.ArrowTopPage {
+    padding-top: 36px;
+}
+.ArrowTopPage > img {
+    filter: invert(50%) brightness(75%);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.ArrowTopPage > img:hover {
+    filter: invert(50%) brightness(50%);
+    box-shadow: 2px 2px 3px rgba(47, 52, 53, 0.5);
+}
+.BigArrow {
+    display: inline-block;
+    height: 50px; width: 50px;
+    box-shadow: 2px 2px 3px rgba(56, 64, 66, 0.3);
+}
+.SmallArrow {
+    display: none;
+    height: 34px; width: 34px;
+    box-shadow: 2px 2px 3px rgba(56, 64, 66, 0.3);
+}
+
+footer {
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    height: 56px;
+}
+
+footer::before { /* Для изменений только фона */
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+    z-index: -1;
+    background:
+        url(img/FooterBackground.jpg) no-repeat,
+/*        url("img/TextureSandMonochrome.png") no-repeat,
+        linear-gradient(3deg, #746c52, #4e432a), */
+        #6e643e;
+    background-size: 100% 400%, auto, auto;
+    background-blend-mode: soft-light;
+    filter: brightness(1.5) contrast(0.8);
+}
+
+footer p {
+    margin-top: 8px;
+    text-align: center;
+    font-size: 12pt;
+    line-height: 1.25em;
+}
+
+.FadeIn {
+    animation-name: FadeIn;
+    animation-fill-mode: both;
+    animation-duration: 500ms;
+}
+
+.FadeOut {
+    animation-name: FadeOut;
+    animation-fill-mode: both;
+    animation-duration: 500ms;
+}
+
+@keyframes FadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+@keyframes FadeOut {
+    from { opacity: 1 }
+    to { opacity: 0 }
+}
+
+@keyframes PreloadBoxRotate {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(270deg);
+    }
+}
+
+@keyframes PreloadCircleScale {
+    0%, 100% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+}
+
+@keyframes HeaderTitleAnimation {
+    0% {
+        transform: translateX(0) rotate(0deg) scaleX(1);
+        filter: hue-rotate(0deg);
+    }
+    35% {
+        transform: translateX(14vw) rotate(0deg) scaleX(1);
+        filter: hue-rotate(0deg);
+    }
+    45% {
+        transform: translateX(14vw) rotate(0deg) scaleX(0.25);
+        filter: hue-rotate(45deg);
+    }
+    88% {
+        transform: translateX(14vw) rotate(360deg) scaleX(0.25);
+        filter: hue-rotate(360deg);
+    }
+    100% {
+        transform: translateX(0) rotate(360deg) scaleX(1);
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes HeaderEmblem1Animation_BigScreen {
+    0% {
+        clip-path: circle(0 at 520px 40px);
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+    25% {
+        filter: blur(5px) brightness(1.1) saturate(1.1);
+    }
+    50% {
+        clip-path: circle(75px at 520px 40px);
+        filter: blur(2px) brightness(1) saturate(1.05);
+    }
+    100% {
+        clip-path: circle(75px at 520px 40px);
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+}
+
+@keyframes HeaderEmblem2Animation_BigScreen {
+    0% {
+        clip-path: circle(0 at 520px 40px);
+        filter: blur(4px) brightness(1.1) saturate(1.1);
+    }
+    10% {
+        clip-path: circle(0 at 520px 40px);
+        filter: blur(4px) brightness(1.1) saturate(1.1);
+    }
+    50% {
+        clip-path: circle(75px at 520px 40px);
+        filter: blur(2px) brightness(1) saturate(1.05);
+    }
+    100% {
+        clip-path: circle(75px at 520px 40px);
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+}
+
+@keyframes HeaderEmblem1Animation_SmallScreen {
+    0% {
+        clip-path: circle(0 at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+    25% {
+        filter: blur(4px) brightness(1.1) saturate(1.2);
+    }
+    50% {
+        clip-path: circle(47px at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(2px) brightness(1) saturate(1.05);
+    }
+    100% {
+        clip-path: circle(47px at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+}
+
+@keyframes HeaderEmblem2Animation_SmallScreen {
+    0% {
+        clip-path: circle(0 at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(4px) brightness(1.1) saturate(1.2);
+    }
+    10% {
+        clip-path: circle(0 at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(4px) brightness(1.1) saturate(1.2);
+    }
+    50% {
+        clip-path: circle(47px at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(2px) brightness(1) saturate(1.05);
+    }
+    100% {
+        clip-path: circle(47px at 324px 25px); /* Зависит от высоты header::before */
+        filter: blur(1px) brightness(1) saturate(1);
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .TimeNews {
+        font-size: 12pt;
+        margin-top: 6px;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    header::before, .HeaderEmblem1, .HeaderEmblem2 {
+        height: 124px;
+    }
+    h1 {
+        font-size: 46pt;
+    }
+    .MainHeader p {
+        font-size: 20pt;
+        padding-bottom: 14px;
+    }
+    .MainHeader {
+        left: -10px;
+        width: 366px;
+    }
+    .HeaderEmblem1 {
+        clip-path: circle(0 at 324px 25px); /* Зависит от высоты header::before */
+        transform-origin: 324px 25px 0; /* Зависит от высоты header::before */
+    }
+    .HeaderEmblem2 {
+        clip-path: circle(0 at 324px 25px); /* Зависит от высоты header::before */
+        transform-origin: 324px 25px 0; /* Зависит от высоты header::before */
+    }
+    .ready .HeaderEmblem1 {
+        animation: HeaderEmblem1Animation_SmallScreen 3s linear infinite;
+    }
+    .ready .HeaderEmblem2 {
+        animation: HeaderEmblem2Animation_SmallScreen 3s linear infinite;
+    }
+    .ready .HeaderEmblem1AnimDelay, .ready .HeaderEmblem2AnimDelay {
+        animation-delay: 2.5s;
+    }
+    nav {
+        height: 50px;
+        margin: 15px 0;
+    }
+    aside {
+        margin-left: 15px;
+    }
+    .MainArticle {
+        margin: 0 15px;
+    }
+    h3, .Navigation a, .FigCover figcaption {
+        font-size: 12pt;
+    }
+    .TimeNews {
+        margin-left: -9%;
+        font-size: 10pt;
+        margin-top: 4px;
+    }
+    .CenterContainer p, .News p, .AboutProject p, .MailFormTable {
+        font-size: 13pt;
+    }
+    .MusicAlbum .AnchorMA { /* Якори муз. альбомов, положение зависит от высоты nav */
+        top: -50px;
+    }
+    .MusicAlbum iframe {
+        margin-bottom: -5px;
+    }
+    .MusicAlbum .PlayArrow {
+        left: -60px;
+        font-size: 92pt;
+    }
+    .FigCover .DoubleCircle {
+        width: 60px; height: 60px;
+        top: calc(50% - 60px/2);
+        left: calc(50% - 60px/2);
+        background: radial-gradient(circle at center, #1b1b1b 11px, 
+        rgba(227, 222, 236, 0.95) 12px);
+    }
+    #ContactInfo {
+        width: 100%;
+    }
+    #MailFormAnchor {
+        top: -50px; /* Зависит от высоты nav */
+    }
+    .MainArticle, #ContactInfo p, .FormTrigger {
+        font-size: 15pt;
+    }
+    .MailFormTable .LimitNote {
+        font-size: 9pt;
+        top: -25px;
+    }
+    .MailFormTable {
+        width: 100%;
+    }
+    .News p {
+        margin-left: 50px;
+    }
+    .AuthorPhoto {
+        height: 180px;
+        width: 180px;
+        margin: 5px 12px 5px 5px;
+    }
+    .SubmitButton {
+        width: 90px;
+        height: 24px;
+        font-size: 14px;
+    }
+    .RightColumn {
+        font-size: 11pt;
+        padding: 3px;
+        word-wrap: normal;
+    }
+    .RightColumnButton1 {
+        margin: 17px -15% 0 0;
+        padding: 3px;
+        height: 33px;
+        width: 80px;
+        font-size: 0pt;
+    }
+    .RightColumnButton1:after {
+        font-size: 10pt;
+        content: 'Закрыть';
+    }
+    .RightColumnButton2 {
+        bottom: 17px;
+        left: -80px;
+        padding: 3px;
+        height: 40px;
+        width: 85px;
+        font-size: 0pt;
+        border: 1px solid #f30606;
+    }
+    .RightColumnButton2:after {
+        font-size: 10pt;
+        content: ' Закрыть НАВСЕГДА!';
+    }
+    .RightColumn ol {
+        height: 546px;
+    }
+    .BigArrow {
+        display: none;
+    }
+    .SmallArrow {
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .MusicAlbum .PlayArrow {
+        left: -40px;
+        font-size: 60pt;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .FigCover .DoubleCircle {
+        width: 40px; height: 40px;
+        top: calc(50% - 40px/2);
+        left: calc(50% - 40px/2);
+        background: radial-gradient(circle at center, #1b1b1b 7px, 
+        rgba(227, 222, 236, 0.95) 8px);
+    }
+}

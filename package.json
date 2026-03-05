@@ -1,0 +1,13 @@
+{
+  "name": "almadyne-music",
+  "version": "1.0.1",
+  "description": "Cinematic music project",
+  "keywords": [],
+  "author": "ATD",
+  "license": "ISC",
+  "type": "module",
+  "scripts": {
+    "start": "php -S localhost:8000",
+    "prod": "php -S 0.0.0.0:$PORT"
+  }
+}
