@@ -3,6 +3,10 @@
 // ini_set('display_errors', 1);
 // error_reporting(E_ALL);
 
+if (file_exists(__DIR__ . '/mail_config.php')) {
+    include __DIR__ . '/mail_config.php';
+}
+
 /**
  * Функция для вывода ошибок валидации
  */
@@ -59,7 +63,8 @@ if (isset($_POST['email'])) {
     }
 
     // Отправка сообщения через Formspree
-    $formspree_url = 'https://formspree.io/f/mreygpzl';
+    $formspree_id = getenv('FORMSPREE_ID'); 
+    $formspree_url = 'https://formspree.io/f/' . $formspree_id;
 
     $ch = curl_init($formspree_url);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Игнорирование проверки сертификата
