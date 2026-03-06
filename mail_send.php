@@ -1,17 +1,7 @@
 <?php
-/* Раскомментировать строки ниже для отладки, если что-то пойдёт не так */
+/* Раскомментируй для отладки, если будет белый экран */
 // ini_set('display_errors', 1);
 // error_reporting(E_ALL);
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require 'mail/Exception.php';
-require 'mail/PHPMailer.php';
-require 'mail/SMTP.php';
-
-// Загрузка конфига
-$config = require './mail_config.php';
 
 /**
  * Функция для вывода ошибок валидации
@@ -25,7 +15,7 @@ function problem($error)
 }
 
 /**
- * Очистка строк от вредоносных вставок
+ * Функция очистки строк
  */
 function clean_string($string)
 {
@@ -34,78 +24,62 @@ function clean_string($string)
 }
 
 if (isset($_POST['email'])) {
-    // Проверка на существование обязательных полей
-    if (
-        empty($_POST['name']) ||
-        empty($_POST['email']) ||
-        empty($_POST['subject']) ||
-        empty($_POST['message'])
-    ) {
+    if (empty($_POST['name']) || empty($_POST['email']) || empty($_POST['subject']) || empty($_POST['message'])) {
         problem('Все поля, отмеченные звездочкой, обязательны для заполнения.');
     }
 
-    // Подготовка данных
-    $email_to = $config['email_to'];
-    $email_from = clean_string($_POST['email']);
+    // Определение переменных для полей формы
     $name = clean_string($_POST['name']);
+    $email_from = clean_string($_POST['email']);
     $subject = clean_string($_POST['subject']);
     $message_text = clean_string($_POST['message']);
     
-    // Формирование тела письма (HTML)
-    $full_message = "<b>Имя отправителя:</b> " . $name . "<br>";
-    $full_message .= "<b>Адрес отправителя:</b> " . $email_from . "<br><br>";
-    $full_message .= "<b>Сообщение:</b><br>" . nl2br($message_text);
-
+    // Проверка значений полей формы
     $error_message = "";
 
-    // 1. Валидация Email через встроенный фильтр PHP (пропустит любые домены)
     if (!filter_var($email_from, FILTER_VALIDATE_EMAIL)) {
         $error_message .= 'Введенный Email адрес некорректен.<br>';
     }
 
-    // 2. Валидация имени (разрешаем буквы разных языков, цифры и пробелы)
     $name_exp = "/^[\p{L}\d\s.'&*-]+$/u";
     if (!preg_match($name_exp, $name)) {
         $error_message .= 'Имя содержит недопустимые символы.<br>';
     }
 
-    // 3. Проверка длины сообщения
-    if (mb_strlen($message_text) < 2) {
+    if (strlen($subject) < 2) {
+        $error_message .= 'Тема сообщения слишком короткая.<br>';
+    }
+
+    if (strlen($message_text) < 2) {
         $error_message .= 'Сообщение слишком короткое.<br>';
     }
 
-    // Если есть ошибки - стоп процесс
     if (strlen($error_message) > 0) {
         problem($error_message);
     }
 
-    $mail = new PHPMailer(true);
+    // Отправка сообщения через Formspree
+    $formspree_url = 'https://formspree.io/f/mreygpzl';
 
-    try {
-        // Настройки сервера из mail_config.php
-        $mail->isSMTP();
-        $mail->Host       = $config['smtp_host'];
-        $mail->SMTPAuth   = true;
-        $mail->Username   = $email_to; // Яндекс требует, чтобы логин совпадал с почтой отправителя
-        $mail->Password   = $config['mail_password'];
-        $mail->SMTPSecure = $config['smtp_secure'];
-        $mail->Port       = $config['smtp_port'];
-        $mail->CharSet    = 'UTF-8';
-
-        // Получатели
-        $mail->setFrom($email_to, 'AlmaDyne Music Contact Form'); 
-        $mail->addAddress($email_to, 'ATD');
-        $mail->addReplyTo($email_from, $name);
-
-        // Контент
-        $mail->isHTML(true);
-        $mail->Subject = "AlmaDyne Music: " . $subject;
-        $mail->Body    = $full_message;
-        $mail->AltBody = strip_tags($full_message); // Текстовая версия без HTML тегов
-
-        $mail->send();
-
-        // Успешный финал с таймером
+    $ch = curl_init($formspree_url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Игнорирование проверки сертификата
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false); // Игнорирование проверки хоста
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, [
+        'Name' => $name,
+        'Email' => $email_from,
+        'Тема' => $subject,
+        'Message' => $message_text
+    ]);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+    
+    $response = curl_exec($ch);
+    $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    
+    // Обработка ответа
+    if ($status == 200) {
         echo "<h3>Сообщение было успешно отправлено.</h3>";
         echo "<h4>Вы будете перенаправлены на главную страницу через <span id='countdown'>7</span> секунд.</h4>";
         echo "<p><b>Или нажмите на ссылку: <a href='index.html'>Вернуться на главную страницу</a></b></p>";
@@ -121,10 +95,8 @@ if (isset($_POST['email'])) {
                 }
             }, 1000);
         </script>";
-
-    } catch (Exception $e) {
-        echo "<h3>Ошибка отправки!</h3>";
-        echo "Описание: {$mail->ErrorInfo}";
+    } else {
+        echo "Ошибка отправки! Код: $status. Ответ сервиса: $response";
     }
 }
 ?>
