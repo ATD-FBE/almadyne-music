@@ -1,5 +1,5 @@
 # Официальный образ PHP с установленным сервером Apache
-FROM php:8.2-apache
+FROM php:8.2.35-apache
 
 # Копирование всех файлов проекта в папку сервера
 COPY . /var/www/html/
